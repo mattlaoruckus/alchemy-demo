@@ -1,0 +1,12 @@
+<% cache(slider) do %>
+<% if slider.nested_elements.any? %>
+<div class="row">
+  <div class="large-12 columns">
+    <ul data-orbit data-options="bullets: false; timer: false; slide_number: false">
+      <%= render slider.nested_elements %>
+    </ul>
+    <hr>
+  </div>
+</div>
+<% end %>
+<% end %>

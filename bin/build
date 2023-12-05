@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+# path to your application root.
+APP_ROOT = File.expand_path("..", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  puts "== Installing dependencies =="
+  system!("bundle install --frozen --clean --without development test --jobs $(nproc)")
+  system!("bin/yarn install")
+
+  if ENV["RENDER_SERVICE_TYPE"] == "web"
+    puts "\n== Compiling assets =="
+    system! "bin/rake assets:precompile assets:clean"
+
+    puts "\n== Preparing database =="
+    system! "bin/rake db:migrate"
+
+    puts "\n== Resetting demo =="
+    system! "bin/rake demo:reset"
+  end
+end

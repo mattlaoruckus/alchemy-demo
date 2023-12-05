@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= render 'alchemy/pages/meta_data' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= stylesheet_link_tag "application", 'data-turbolinks-track' => 'reload' %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => 'reload', defer: true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+
+    <%= render 'alchemy/preview_mode_code' %>
+    <%= render 'alchemy/menubar' %>
+  </body>
+</html>
